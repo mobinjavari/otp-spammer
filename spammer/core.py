@@ -1,8 +1,10 @@
+import itertools
 import json
 import re
 import time
 from pathlib import Path
 from typing import Any, ClassVar, Dict, Optional
+from urllib.parse import urlsplit
 
 import requests
 from requests.exceptions import RequestException, Timeout
@@ -162,9 +164,12 @@ class Spammer:
             Message.prompt_refresh()
             return
 
-        for api_name, api_service in api_services.items():
-            if message_index >= cls._repetition:
+        max_attempts = cls._repetition * len(api_services)
+        attempts = 0
+        for api_name, api_service in itertools.cycle(api_services.items()):
+            if message_index >= cls._repetition or attempts >= max_attempts:
                 break
+            attempts += 1
 
             try:
                 api_url = api_service["url"].format(phone=target_number)
@@ -177,8 +182,8 @@ class Spammer:
                 api_data = cls.format_data(api_service["data"], target_number)
 
                 # Add referer and origin based on URL
-                url_parts = api_url.split('/')
-                base_url = f"{url_parts[0]}//{url_parts[2]}"
+                parsed_url = urlsplit(api_url)
+                base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
                 headers.update({
                     'referer': f"{base_url}/",
                     'origin': base_url
