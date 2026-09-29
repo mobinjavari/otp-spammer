@@ -14,7 +14,6 @@ class ConsoleUI:
     NEON_RED: ClassVar[str] = '\033[38;5;196m'
     RESET: ClassVar[str] = '\033[0m'
     BOLD: ClassVar[str] = '\033[1m'
-    DIM: ClassVar[str] = '\033[2m'                   # For subtle effects
     BLINK: ClassVar[str] = '\033[5m'                 # For warning effects
 
     # Message style mapping with cyberpunk theme
