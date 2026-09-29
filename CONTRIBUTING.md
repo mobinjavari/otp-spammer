@@ -4,21 +4,20 @@ We'd love for you to get involved in developing this repository!
 
 ## Setup Workflow
 
-Clone the repository, create a virtual environment, and install the dependencies:
+| Command | Description |
+| --- | --- |
+| `python3 -m venv venv` | Create a virtual environment |
+| `source venv/bin/activate` | Activate the virtual environment |
+| `pip install -r requirements.txt` | Install dependencies |
+| `python main.py` | Run the tool |
 
-```
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-Run the tool with `python main.py`. There is no automated test suite or linter configured yet.
+No automated test suite or linter is configured yet.
 
 ## Schema Workflow
 
-- `main.py` is the entry point; it starts the console loop defined in `Spammer.run()`.
-- `spammer/` is the package holding the core logic: `console.py` renders console styling and ASCII art, `messages.py` builds user-facing prompts, and `core.py` collects phone number/repetition input and dispatches requests.
-- `spammer/data/` holds one JSON file per service type (`sms_services.json`, `call_services.json`) describing the third-party endpoints targeted for each channel.
+- `main.py` is the entry point that starts the program.
+- `spammer/` is the package holding the core logic: console styling, user-facing prompts, and the request-dispatching flow.
+- `spammer/data/` holds the third-party service definitions, one JSON file per channel type.
 
 ## Contribution Workflow
 
